@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
     private float verticalInput;
     private float horizontalInput;
 
+    [Space]
+    public LayerMask whatIsAimMask;
+    public Transform aimTransform;
+
 
     private void Start()
     {
@@ -20,6 +24,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        UpdateAim();
+
         // w = 1, s = -1...
         verticalInput = Input.GetAxis("Vertical"); // z
         horizontalInput = Input.GetAxis("Horizontal"); // x
@@ -29,6 +35,8 @@ public class Player : MonoBehaviour
         {
             horizontalInput = -Input.GetAxis("Horizontal");
         }
+
+
     }
 
     private void FixedUpdate()
@@ -37,5 +45,18 @@ public class Player : MonoBehaviour
         rb.velocity = movement;
 
         transform.Rotate(0, horizontalInput * rotationSpeed, 0);
+    }
+
+    private void UpdateAim()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity, whatIsAimMask))
+        {
+            float fixedY = aimTransform.position.y;
+            aimTransform.position = new Vector3(hit.point.x, fixedY, hit.point.z);
+        }
     }
 }
