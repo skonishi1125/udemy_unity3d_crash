@@ -2,26 +2,40 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Rigidbody rb;
+
+    [Header("Movement data")]
     public float moveSpeed;
-    public Rigidbody rb;
+    public float rotationSpeed;
 
-    public float verticalInput;
+    private float verticalInput;
+    private float horizontalInput;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         // w = 1, s = -1...
-        verticalInput = Input.GetAxis("Vertical");
+        verticalInput = Input.GetAxis("Vertical"); // z
+        horizontalInput = Input.GetAxis("Horizontal"); // x
+
+        // back move adjust
+        if (verticalInput < 0)
+        {
+            horizontalInput = -Input.GetAxis("Horizontal");
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(0, 0, moveSpeed * verticalInput);
+        Vector3 movement = transform.forward * moveSpeed * verticalInput;
+        rb.velocity = movement;
+
+        transform.Rotate(0, horizontalInput * rotationSpeed, 0);
     }
 }

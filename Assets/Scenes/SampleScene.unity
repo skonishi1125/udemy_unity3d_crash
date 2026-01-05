@@ -612,9 +612,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1962900234}
+  - component: {fileID: 1962900237}
   - component: {fileID: 1962900235}
   - component: {fileID: 1962900236}
-  - component: {fileID: 1962900237}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -699,8 +699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc8f2329a93ef346b0a822158b3ad45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  rb: {fileID: 1962900236}
+  moveSpeed: 2.5
+  rotationSpeed: 1
 --- !u!1 &1983158839
 GameObject:
   m_ObjectHideFlags: 0
